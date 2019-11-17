@@ -17,6 +17,12 @@ export default {
         title,
         content
       });
+    },
+    deletePost: async (_, { id }, { models }) => {
+      const deletedPost = await models.Blog.findByIdAndDelete(id);
+      if (!deletedPost)
+        return new Error("Failed to delete the post with that id");
+      return deletedPost;
     }
   }
 };
