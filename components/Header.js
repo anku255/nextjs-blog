@@ -1,10 +1,13 @@
+import React, { useState } from "react";
 import styled from "styled-components";
+import Button from "./Button";
 
 const StyledHeader = styled.header`
-  padding: 0.75rem 8rem;
   margin: 0 auto;
+  padding: 0.75rem 0;
 
   .header {
+    padding: 0 8rem;
     display: flex;
     justify-content: space-between;
 
@@ -13,10 +16,11 @@ const StyledHeader = styled.header`
       align-items: center;
 
       button {
+        display: none;
         border: none;
         margin: 0;
         padding: 0;
-        margin-right: 0.5rem;
+        margin-right: 1rem;
         border: none;
         &:focus {
           outline: none;
@@ -38,120 +42,149 @@ const StyledHeader = styled.header`
     &__right {
       display: flex;
       align-items: center;
+    }
+  }
 
-      .header__select {
-        position: relative;
-        width: 6rem;
-        margin-right: 1rem;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        cursor: pointer;
+  nav {
+    padding: 0 7.5rem;
+    display: none;
+    ul {
+      padding: 0;
+      list-style: none;
 
-        div {
-          pointer-events: none;
-          display: flex;
-          align-items: center;
-          color: grey;
-          svg {
-            height: 0.5rem;
-            width: 0.5rem;
-            fill: currentColor;
-          }
-        }
-
-        select {
-          display: block;
-          appearance: none;
-          border: none;
-          border-radius: 3px;
-          line-height: 1.25rem;
-          cursor: pointer;
-          font-weight: 600;
-          font-size: 0.875rem;
-
-          &:focus {
-            outline: none;
-            background: white;
-          }
-        }
-      }
-
-      .button__secondary {
-        padding: 0.75rem;
-        width: 8rem;
-        margin-right: 1rem;
+      li {
+        padding: 0.5rem 0.5rem;
         border-radius: 5px;
-        font-weight: 600;
-        border: 1px solid #f6ad55;
-        cursor: pointer;
 
-        &:focus {
-          outline: none;
-        }
+        &:focus,
         &:hover {
-          background: #f6ad55;
-          color: white;
-        }
-      }
-      .button__primary {
-        padding: 0.75rem;
-        width: 10rem;
-        border-radius: 5px;
-        font-weight: 600;
-        color: white;
-        background: #f6ad55;
-        border: none;
-        cursor: pointer;
-
-        &:focus {
-          outline: none;
-        }
-        &:hover {
-          background: #dd6b20;
-          color: white;
+          background: rgba(0, 0, 0, 0.05);
         }
       }
     }
   }
+
+  @media (max-width: 800px) {
+    .header {
+      padding: 0 4rem;
+      .header__left button {
+        display: inline-block;
+      }
+      .header__right {
+        display: none;
+      }
+    }
+
+    nav {
+      display: block;
+      padding: 0 3.5rem;
+    }
+  }
 `;
 
-const Header = () => (
-  <StyledHeader>
-    <div className="header">
-      <div className="header__left">
-        <button>
-          <svg viewBox="0 0 20 20">
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-          </svg>
-        </button>
-        <div>Clanist.com</div>
-      </div>
-      <div className="header__right">
-        <div className="header__select">
-          <div>
-            <svg viewBox="0 0 20 20">
-              <path d="M10 20S3 10.87 3 7a7 7 0 1114 0c0 3.87-7 13-7 13zm0-11a2 2 0 100-4 2 2 0 000 4z" />
-            </svg>
-          </div>
+const StyledSelect = styled.div`
+  position: relative;
+  width: 5rem;
+  margin-right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
 
-          <select>
-            <option>England</option>
-            <option>India</option>
-          </select>
+  div {
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    color: grey;
+    svg {
+      height: 0.5rem;
+      width: 0.5rem;
+      fill: currentColor;
+    }
+  }
 
-          <div>
+  select {
+    display: block;
+    appearance: none;
+    border: none;
+    border-radius: 3px;
+    line-height: 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.875rem;
+
+    &:focus {
+      outline: none;
+      background: white;
+    }
+  }
+`;
+
+const HeaderSelect = () => (
+  <StyledSelect>
+    <div>
+      <svg viewBox="0 0 20 20">
+        <path d="M10 20S3 10.87 3 7a7 7 0 1114 0c0 3.87-7 13-7 13zm0-11a2 2 0 100-4 2 2 0 000 4z" />
+      </svg>
+    </div>
+
+    <select>
+      <option>England</option>
+      <option>India</option>
+    </select>
+
+    <div>
+      <svg viewBox="0 0 20 20">
+        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+      </svg>
+    </div>
+  </StyledSelect>
+);
+
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(isOpen => !isOpen);
+  return (
+    <StyledHeader>
+      <div className="header">
+        <div className="header__left">
+          <button onClick={toggle}>
             <svg viewBox="0 0 20 20">
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              {isOpen ? (
+                <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+              ) : (
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+              )}
             </svg>
-          </div>
+          </button>
+          <div>Clanist.com</div>
         </div>
 
-        <button className="button__secondary">Sign In</button>
-        <button className="button__primary">Rent your room</button>
+        <div className="header__right">
+          <HeaderSelect isOpen={isOpen} />
+          <Button secondary>Sign In</Button>
+          <Button primary>Rent your room</Button>
+        </div>
       </div>
-    </div>
-  </StyledHeader>
-);
+
+      {isOpen && (
+        <nav>
+          <ul>
+            <li>
+              <HeaderSelect />
+            </li>
+            <li>
+              <Button secondary>Sign In</Button>
+            </li>
+            <li>
+              <Button primary>Rent your room</Button>
+            </li>
+          </ul>
+        </nav>
+      )}
+    </StyledHeader>
+  );
+};
 
 export default Header;

@@ -50,11 +50,7 @@ const Footer = props => {
                 <div className="link">England</div>
               </div>
               <div className="more">
-                <Button
-                  border="1px solid #dd6b20"
-                  borderRadius="1px"
-                  width="7rem"
-                >
+                <Button secondary rounded={false}>
                   See More
                 </Button>
               </div>

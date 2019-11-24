@@ -1,48 +1,34 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const ButtonWrapper = styled.button`
-  padding: ${props => props.padding};
-  width: ${props => props.width};
-  border-radius: ${props => props.borderRadius};
-  font-weight: ${props => props.fontWeight};
-  color: ${props => props.color};
-  background: ${props => props.background};
-  border: ${props => props.border};
+const Button = styled.button`
+  padding: 0.75rem 1rem;
+  margin-right: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  ${props => props.primary && "background: #f6ad55;"}
+
+  border-radius: ${props => (props.rounded ? "5px" : "0")};
+  color: ${props => (props.primary ? "white" : "black")};
+  border: ${props => (props.primary ? "none" : "1px solid #f6ad55")};
 
   &:focus {
     outline: none;
   }
   &:hover {
-    background: #dd6b20;
+    background: ${props => (props.primary ? "#dd6b20" : "#f6ad55")};
     color: white;
   }
 `;
 
-const Button = props => (
-  <ButtonWrapper {...props}>{props.children}</ButtonWrapper>
-);
-
-export default Button;
-
 Button.propTypes = {
-  padding: PropTypes.string,
-  width: PropTypes.string,
-  borderRadius: PropTypes.string,
-  fontWeight: PropTypes.string,
-  color: PropTypes.string,
-  background: PropTypes.string,
-  border: PropTypes.string
+  primary: PropTypes.bool,
+  secondary: PropTypes.bool
 };
 
 Button.defaultProps = {
-  padding: "0.75rem",
-  width: "10rem",
-  borderRadius: "5px",
-  fontWeight: "600",
-  color: "black",
-  background: "none",
-  border: "none"
+  rounded: true
 };
+
+export default Button;
