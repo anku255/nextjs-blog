@@ -6,7 +6,7 @@ import gql from "graphql-tag";
 import Layout from "../components/Layout";
 
 const CREATE_POST_MUTATION = gql`
-  mutation createPost($title: String!, $content: String!) {
+  mutation createPost($title: String!, $imageURL: String!, $content: String!) {
     createPost(title: $title, content: $content) {
       id
       title
@@ -19,7 +19,7 @@ const CKEditor = dynamic(() => import("../components/CKEditor"), {
   ssr: false
 });
 
-const CustomInput = props => <input {...props} />;
+const CustomInput = props => <input {...props.field} />;
 
 const StyledForm = styled.div`
   padding: 0.75rem 8rem;
@@ -39,19 +39,20 @@ const validate = values => {
   if (!values.content) {
     errors.content = "Required";
   }
+
   return errors;
 };
 
 const CreatePost = () => {
-  const [
-    createPost,
-    { loading: createPostLoading, error: createPostError }
-  ] = useMutation(CREATE_POST_MUTATION);
+  const [createPost, { loading: createPostLoading }] = useMutation(
+    CREATE_POST_MUTATION
+  );
 
   return (
     <Layout>
       <StyledForm>
         <h1>Create a post</h1>
+
         <Formik
           initialValues={{
             title: "",
@@ -61,7 +62,11 @@ const CreatePost = () => {
           validate={validate}
           onSubmit={values => {
             createPost({
-              variables: { title: values.title, content: values.content }
+              variables: {
+                title: values.title,
+                imageURL: values.imageURL,
+                content: values.content
+              }
             });
           }}
         >

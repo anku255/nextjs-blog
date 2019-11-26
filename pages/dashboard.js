@@ -8,6 +8,7 @@ const ALL_POSTS_QUERY = gql`
     getAllPosts {
       id
       title
+      published
       createdOn
     }
   }
@@ -17,11 +18,24 @@ const DELETE_POST_MUTATION = gql`
   mutation deletePost($id: ID!) {
     deletePost(id: $id) {
       id
+      title
+      published
+      createdOn
+    }
+  }
+`;
+const PUBLISH_POST_MUTATION = gql`
+  mutation updatePost($id: ID!, $published: Boolean!) {
+    updatePost(id: $id, published: $published) {
+      id
+      title
+      published
+      createdOn
     }
   }
 `;
 
-const DeletePostButton = ({ postId }) => {
+const ActionButtons = ({ postId, published }) => {
   const [deletePost, { loading: deletePostLoading }] = useMutation(
     DELETE_POST_MUTATION,
     {
@@ -37,19 +51,44 @@ const DeletePostButton = ({ postId }) => {
     }
   );
 
+  const [publishPost, { loading: publishPostLoading }] = useMutation(
+    PUBLISH_POST_MUTATION
+  );
+
   return (
-    <button
-      onClick={() =>
-        deletePost({
-          variables: {
-            id: postId
-          }
-        })
-      }
-      disabled={deletePostLoading}
-    >
-      {deletePostLoading ? "Deleting..." : "Delete"}
-    </button>
+    <div>
+      <button
+        onClick={() =>
+          deletePost({
+            variables: {
+              id: postId
+            }
+          })
+        }
+        disabled={deletePostLoading}
+      >
+        {deletePostLoading ? "Deleting..." : "Delete"}
+      </button>
+      <button
+        onClick={() =>
+          publishPost({
+            variables: {
+              id: postId,
+              published: !published
+            }
+          })
+        }
+        disabled={publishPostLoading}
+      >
+        {published
+          ? publishPostLoading
+            ? "Unpublishing..."
+            : "Unpublish"
+          : publishPostLoading
+          ? "Publishing..."
+          : "Publish"}
+      </button>
+    </div>
   );
 };
 
@@ -73,7 +112,9 @@ const columns = [
     Header: "Actions",
     accessor: "actions",
     disableSortBy: true,
-    Cell: ({ cell: { value } }) => <DeletePostButton postId={value} />
+    Cell: ({ cell: { value } }) => (
+      <ActionButtons postId={value.id} published={value.published} />
+    )
   }
 ];
 
@@ -86,8 +127,8 @@ const getTableData = data => {
   return data.getAllPosts.map(post => ({
     postTitle: post.title,
     postedOn: getRedableDate(post.createdOn),
-    published: true,
-    actions: post.id
+    published: post.published,
+    actions: { id: post.id, published: post.published }
   }));
 };
 

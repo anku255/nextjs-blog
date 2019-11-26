@@ -13,6 +13,10 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  published: {
+    type: Boolean,
+    default: false
+  },
   createdOn: {
     type: Date,
     default: Date.now
