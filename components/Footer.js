@@ -118,8 +118,8 @@ const Footer = props => {
       <div className="interesting-links">
         <div className="heading">Interesting Links</div>
         <div className="grid">
-          {[...Array(4).keys()].map(() => (
-            <div className="column">
+          {[...Array(4).keys()].map(i => (
+            <div key={i} className="column">
               <div className="label">Popular Real Estate Market</div>
               <ul>
                 <li>England</li>
@@ -138,8 +138,8 @@ const Footer = props => {
       </div>
       <div className="footer">
         <div className="company-links">
-          {[...Array(4).keys()].map(() => (
-            <div className="column">
+          {[...Array(4).keys()].map(i => (
+            <div className="column" key={i}>
               <div className="heading">Contact Us</div>
               <ul>
                 <li>jobs</li>
@@ -165,27 +165,27 @@ const Footer = props => {
                 viewBox="0 0 512 512"
                 width="512px"
                 height="512px"
-                class="hovered-paths"
+                className="hovered-paths"
               >
                 <g>
                   <path
                     d="m437 0h-362c-41.351562 0-75 33.648438-75 75v362c0 41.351562 33.648438 75 75 75h362c41.351562 0 75-33.648438 75-75v-362c0-41.351562-33.648438-75-75-75zm-180 390c-74.441406 0-135-60.558594-135-135s60.558594-135 135-135 135 60.558594 135 135-60.558594 135-135 135zm150-240c-24.8125 0-45-20.1875-45-45s20.1875-45 45-45 45 20.1875 45 45-20.1875 45-45 45zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
                   <path
                     d="m407 90c-8.277344 0-15 6.722656-15 15s6.722656 15 15 15 15-6.722656 15-15-6.722656-15-15-15zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
                   <path
                     d="m257 150c-57.890625 0-105 47.109375-105 105s47.109375 105 105 105 105-47.109375 105-105-47.109375-105-105-105zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
@@ -198,27 +198,27 @@ const Footer = props => {
                 viewBox="0 0 512 512"
                 width="512px"
                 height="512px"
-                class="hovered-paths"
+                className="hovered-paths"
               >
                 <g>
                   <path
                     d="m437 0h-362c-41.351562 0-75 33.648438-75 75v362c0 41.351562 33.648438 75 75 75h362c41.351562 0 75-33.648438 75-75v-362c0-41.351562-33.648438-75-75-75zm-180 390c-74.441406 0-135-60.558594-135-135s60.558594-135 135-135 135 60.558594 135 135-60.558594 135-135 135zm150-240c-24.8125 0-45-20.1875-45-45s20.1875-45 45-45 45 20.1875 45 45-20.1875 45-45 45zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
                   <path
                     d="m407 90c-8.277344 0-15 6.722656-15 15s6.722656 15 15 15 15-6.722656 15-15-6.722656-15-15-15zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
                   <path
                     d="m257 150c-57.890625 0-105 47.109375-105 105s47.109375 105 105 105 105-47.109375 105-105-47.109375-105-105-105zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
@@ -231,27 +231,27 @@ const Footer = props => {
                 viewBox="0 0 512 512"
                 width="512px"
                 height="512px"
-                class="hovered-paths"
+                className="hovered-paths"
               >
                 <g>
                   <path
                     d="m437 0h-362c-41.351562 0-75 33.648438-75 75v362c0 41.351562 33.648438 75 75 75h362c41.351562 0 75-33.648438 75-75v-362c0-41.351562-33.648438-75-75-75zm-180 390c-74.441406 0-135-60.558594-135-135s60.558594-135 135-135 135 60.558594 135 135-60.558594 135-135 135zm150-240c-24.8125 0-45-20.1875-45-45s20.1875-45 45-45 45 20.1875 45 45-20.1875 45-45 45zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
                   <path
                     d="m407 90c-8.277344 0-15 6.722656-15 15s6.722656 15 15 15 15-6.722656 15-15-6.722656-15-15-15zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
                   <path
                     d="m257 150c-57.890625 0-105 47.109375-105 105s47.109375 105 105 105 105-47.109375 105-105-47.109375-105-105-105zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
@@ -264,27 +264,27 @@ const Footer = props => {
                 viewBox="0 0 512 512"
                 width="512px"
                 height="512px"
-                class="hovered-paths"
+                className="hovered-paths"
               >
                 <g>
                   <path
                     d="m437 0h-362c-41.351562 0-75 33.648438-75 75v362c0 41.351562 33.648438 75 75 75h362c41.351562 0 75-33.648438 75-75v-362c0-41.351562-33.648438-75-75-75zm-180 390c-74.441406 0-135-60.558594-135-135s60.558594-135 135-135 135 60.558594 135 135-60.558594 135-135 135zm150-240c-24.8125 0-45-20.1875-45-45s20.1875-45 45-45 45 20.1875 45 45-20.1875 45-45 45zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
                   <path
                     d="m407 90c-8.277344 0-15 6.722656-15 15s6.722656 15 15 15 15-6.722656 15-15-6.722656-15-15-15zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
                   <path
                     d="m257 150c-57.890625 0-105 47.109375-105 105s47.109375 105 105 105 105-47.109375 105-105-47.109375-105-105-105zm0 0"
                     data-original="#000000"
-                    class="hovered-path active-path"
+                    className="hovered-path active-path"
                     data-old_color="#000000"
                     fill="#FFFFFF"
                   />
