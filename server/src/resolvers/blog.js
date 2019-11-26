@@ -12,9 +12,10 @@ export default {
     }
   },
   Mutation: {
-    createPost: async (_, { title, content }, { models }) => {
+    createPost: async (_, { title, imageURL, content }, { models }) => {
       return models.Blog.create({
         title,
+        imageURL,
         content
       });
     },
