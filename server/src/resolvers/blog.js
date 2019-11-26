@@ -24,6 +24,14 @@ export default {
       if (!deletedPost)
         return new Error("Failed to delete the post with that id");
       return deletedPost;
+    },
+    updatePost: async (_, { id, ...update }, { models }) => {
+      const updatedPost = await models.Blog.findByIdAndUpdate(id, update, {
+        new: true
+      });
+      if (!updatedPost)
+        return new Error("Failed to update the post with that id");
+      return updatedPost;
     }
   }
 };
