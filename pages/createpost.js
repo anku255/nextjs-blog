@@ -1,8 +1,19 @@
 import dynamic from "next/dynamic";
 import styled from "styled-components";
 import { Formik, Field } from "formik";
-
+import { useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 import Layout from "../components/Layout";
+
+const CREATE_POST_MUTATION = gql`
+  mutation createPost($title: String!, $content: String!) {
+    createPost(title: $title, content: $content) {
+      id
+      title
+      content
+    }
+  }
+`;
 
 const CKEditor = dynamic(() => import("../components/CKEditor"), {
   ssr: false
@@ -32,6 +43,11 @@ const validate = values => {
 };
 
 const CreatePost = () => {
+  const [
+    createPost,
+    { loading: createPostLoading, error: createPostError }
+  ] = useMutation(CREATE_POST_MUTATION);
+
   return (
     <Layout>
       <StyledForm>
@@ -43,11 +59,10 @@ const CreatePost = () => {
             content: ""
           }}
           validate={validate}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+          onSubmit={values => {
+            createPost({
+              variables: { title: values.title, content: values.content }
+            });
           }}
         >
           {({
@@ -56,8 +71,7 @@ const CreatePost = () => {
             touched,
             handleSubmit,
             setFieldValue,
-            setFieldTouched,
-            isSubmitting
+            setFieldTouched
           }) => (
             <form onSubmit={handleSubmit}>
               <Field
@@ -82,8 +96,8 @@ const CreatePost = () => {
                 onBlur={() => setFieldTouched("content", true)}
               />
               {errors.content && touched.content && errors.content}
-              <button type="submit" disabled={isSubmitting}>
-                Submit
+              <button type="submit" disabled={createPostLoading}>
+                {createPostLoading ? "Submitting..." : "Submit"}
               </button>
             </form>
           )}
