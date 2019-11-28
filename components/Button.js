@@ -8,7 +8,8 @@ const Button = styled.button`
   font-weight: 600;
   cursor: pointer;
   ${props => props.primary && "background: #f6ad55;"}
-
+  ${props => props.secondary && "background: #fff;"}
+  
   border-radius: ${props => (props.rounded ? "5px" : "0")};
   color: ${props => (props.primary ? "white" : "black")};
   border: ${props => (props.primary ? "none" : "1px solid #f6ad55")};
