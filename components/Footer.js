@@ -42,7 +42,7 @@ const Wrapper = styled.footer`
   }
   .footer {
     padding: 1.5rem 8rem;
-    background-color: #1b2a49;
+    background-color: #142037;
     text-transform: uppercase;
     font-weight: 400;
     font-size: 0.8rem;
@@ -103,7 +103,7 @@ const Wrapper = styled.footer`
   }
   .copyright {
     text-align: center;
-    background-color: #1b2a49;
+    background-color: #142037;
     color: white;
     font-size: 0.8rem;
     font-weight: 500;
