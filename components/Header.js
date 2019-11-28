@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 
+import { screens } from "../theme";
+
 const StyledHeader = styled.header`
   margin: 0 auto;
   padding: 0.75rem 0;
@@ -10,6 +12,10 @@ const StyledHeader = styled.header`
     padding: 0 8rem;
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: ${screens.lg}) {
+      padding: 0 4rem;
+    }
 
     &__left {
       display: flex;
@@ -64,9 +70,8 @@ const StyledHeader = styled.header`
     }
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: ${screens.md}) {
     .header {
-      padding: 0 4rem;
       .header__left button {
         display: inline-block;
       }
