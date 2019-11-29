@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
+import { screens } from "../theme";
+
 const PopularPostsWrapper = styled.div`
   padding: 4rem 8rem;
-  .heading {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
+
+  @media (max-width: ${screens.lg}) {
+    padding: 0 4rem;
   }
 
   .grid {
@@ -14,10 +15,8 @@ const PopularPostsWrapper = styled.div`
 
     &__row {
       display: flex;
-
-      &:not(:nth-child(3n)) {
-        margin-bottom: 2.5rem;
-      }
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
 
       &__element {
         &:first-child {
@@ -29,7 +28,7 @@ const PopularPostsWrapper = styled.div`
         }
 
         &:not(:nth-child(3n)) {
-          margin-right: 2rem;
+          margin-right: 2.6%;
         }
       }
 
@@ -38,8 +37,51 @@ const PopularPostsWrapper = styled.div`
 
         .grid__row__element {
           &:not(:nth-child(3n)) {
-            margin-left: 2rem;
+            margin-left: 2.6%;
             margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: ${screens.lg}) {
+    .grid__row {
+      justify-content: space-between;
+
+      &:nth-child(2n) {
+        .grid__row__element {
+          &:not(:nth-child(3n)) {
+            margin-left: 0;
+          }
+        }
+      }
+
+      &__element {
+        &:first-child {
+          flex-basis: 100%;
+          margin-bottom: 1rem;
+        }
+
+        &:not(:first-child) {
+          flex-basis: 47.5%;
+        }
+
+        &:not(:nth-child(3n)) {
+          margin-right: 0;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: ${screens.sm}) {
+    .grid {
+      &__row {
+        margin-bottom: 0;
+        &__element {
+          &:nth-child(n) {
+            flex-basis: 100%;
+            margin-bottom: 1rem;
           }
         }
       }
@@ -88,7 +130,7 @@ const Post = props => (
 const PopularPosts = props => {
   return (
     <PopularPostsWrapper {...props}>
-      <div className="heading">Popular</div>
+      <h1>Popular</h1>
       <div className="grid">
         <div className="grid__row">
           <div className="grid__row__element">
