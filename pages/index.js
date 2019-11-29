@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Layout from "../components/Layout";
 
 import { screens } from "../theme";
+import PopularPosts from "../components/PopularPosts";
 
 const LatestPosts = styled.section`
   padding: 0 8rem;
@@ -132,5 +133,6 @@ export default () => (
         </div>
       </div>
     </LatestPosts>
+    <PopularPosts />
   </Layout>
 );
