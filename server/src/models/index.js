@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+import User from "./User";
 import Blog from "./Blog";
 
 const connectDb = async () => {
@@ -10,7 +11,7 @@ const connectDb = async () => {
   }
 };
 
-const models = { Blog };
+const models = { User, Blog };
 
 export { connectDb };
 

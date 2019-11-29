@@ -1,5 +1,6 @@
 import { gql } from "apollo-server-express";
 
+import authSchema from "./auth";
 import blogSchema from "./blog";
 
 const linkSchema = gql`
@@ -15,4 +16,4 @@ const linkSchema = gql`
   }
 `;
 
-export default [linkSchema, blogSchema];
+export default [linkSchema, authSchema, blogSchema];

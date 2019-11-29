@@ -11,8 +11,8 @@ const app = express();
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
-  context: () => {
-    return { models };
+  context: ({ req }) => {
+    return { request: req, models };
   }
 });
 

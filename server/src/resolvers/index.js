@@ -1,3 +1,4 @@
+import authResolvers from "./auth";
 import blogResolvers from "./blog";
 
-export default [blogResolvers];
+export default [authResolvers, blogResolvers];
