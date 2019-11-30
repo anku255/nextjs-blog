@@ -10,6 +10,9 @@ const ALL_POSTS_QUERY = gql`
       title
       published
       createdOn
+      author {
+        name
+      }
     }
   }
 `;
@@ -98,6 +101,10 @@ const columns = [
     accessor: "postTitle"
   },
   {
+    Header: "Author",
+    accessor: "author"
+  },
+  {
     Header: "Posted On",
     accessor: "postedOn"
   },
@@ -126,6 +133,7 @@ const getTableData = data => {
 
   return data.getAllPosts.map(post => ({
     postTitle: post.title,
+    author: post.author.name,
     postedOn: getRedableDate(post.createdOn),
     published: post.published,
     actions: { id: post.id, published: post.published }
