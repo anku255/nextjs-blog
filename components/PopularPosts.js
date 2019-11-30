@@ -121,7 +121,7 @@ const groupPostsByRow = posts => {
 const Row = ({ posts }) => (
   <div className="grid__row">
     {posts.map(post => (
-      <div className="grid__row__element">
+      <div key={post.id} className="grid__row__element">
         <Post post={post} />
       </div>
     ))}
