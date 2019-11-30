@@ -14,6 +14,10 @@ const GET_POST_BY_ID = gql`
       title
       imageURL
       content
+
+      author {
+        name
+      }
     }
   }
 `;
@@ -45,8 +49,13 @@ const BlogWrapper = styled.div`
       flex-basis: 80%;
       &__title {
         font-size: 2rem;
-        margin-bottom: 2rem;
         font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      &__author {
+        font-size: 1rem;
+        color: grey;
+        margin-bottom: 2rem;
       }
       img {
         max-width: inherit;
@@ -128,6 +137,7 @@ const PostPage = () => {
         <div className="content">
           <div className="content__blog">
             <div className="content__blog__title">{post.title}</div>
+            <div className="content__blog__author">By {post.author.name}</div>
             <div
               className="content__blog__text"
               dangerouslySetInnerHTML={{ __html: post.content }}
