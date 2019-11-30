@@ -1,11 +1,20 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import Link from "next/link";
 
 const StyledPost = styled.div`
   width: 100%;
   height: ${props => (props.height ? props.height : "100%")};
   display: flex;
   flex-direction: column;
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: inherit;
+    color: inherit;
+  }
 
   .post__image {
     width: 100%;
@@ -36,10 +45,14 @@ const Post = props => (
     height={props.height}
     hideTitle={props.hideTitle}
   >
-    <div className="post__image">
-      <img src={props.post.imageURL} alt={props.post.title} />
-    </div>
-    <p className="post__title">{props.post.title}</p>
+    <Link href={`/post?id=${props.post.id}`}>
+      <a>
+        <div className="post__image">
+          <img src={props.post.imageURL} alt={props.post.title} />
+        </div>
+        <p className="post__title">{props.post.title}</p>
+      </a>
+    </Link>
   </StyledPost>
 );
 
