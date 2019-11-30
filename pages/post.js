@@ -32,7 +32,7 @@ const BlogWrapper = styled.div`
     .heading {
       position: absolute;
       top: 43%;
-      left: 10%;
+      left: 8%;
       font-weight: 600;
       color: white;
       font-size: 2rem;
