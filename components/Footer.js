@@ -1,5 +1,7 @@
 import styled from "styled-components";
+
 import Button from "./Button";
+import { screens } from "../theme";
 
 const Wrapper = styled.footer`
   font-size: 1.2rem;
@@ -36,6 +38,25 @@ const Wrapper = styled.footer`
               margin-bottom: 1.2rem;
             }
           }
+        }
+      }
+    }
+    @media (max-width: ${screens.lg}) {
+      padding: 4rem;
+      .grid {
+        .column {
+          flex-basis: 50%;
+          margin-bottom: 2.5rem;
+        }
+      }
+    }
+
+    @media (max-width: ${screens.sm}) {
+      padding: 4rem;
+      .grid {
+        .column {
+          flex-basis: 100%;
+          margin-bottom: 2.5rem;
         }
       }
     }
