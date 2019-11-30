@@ -17,6 +17,14 @@ export default {
         .skip(skip)
         .limit(limit)
         .sort([["createdOn", -1]]);
+    },
+    getPopularPosts: async (parent, args, { models }) => {
+      const skip = args.skip ? args.skip + 7 : 7; // skip first 8 posts as latest
+      const limit = args.first || 10;
+      return models.Blog.find()
+        .skip(skip)
+        .limit(limit)
+        .sort([["createdOn", -1]]);
     }
   },
   Mutation: {

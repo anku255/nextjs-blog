@@ -4,6 +4,7 @@ export default gql`
   extend type Query {
     getAllPosts: [Post!]!
     getLatestPosts(skip: Int, first: Int): [Post!]!
+    getPopularPosts(skip: Int, first: Int): [Post!]!
     getPostById(id: ID!): Post!
   }
 
