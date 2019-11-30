@@ -1,3 +1,5 @@
+import sanitizeHtml from "sanitize-html";
+
 export default {
   Query: {
     getPostById: async (parent, args, { models }) => {
@@ -19,7 +21,7 @@ export default {
         .sort([["createdOn", -1]]);
     },
     getPopularPosts: async (parent, args, { models }) => {
-      const skip = args.skip ? args.skip + 7 : 7; // skip first 8 posts as latest
+      const skip = args.skip ? args.skip + 7 : 7; // skip first 7 posts as latest
       const limit = args.first || 10;
       return models.Blog.find()
         .skip(skip)
@@ -32,7 +34,7 @@ export default {
       return models.Blog.create({
         title,
         imageURL,
-        content
+        content: sanitizeHtml(content)
       });
     },
     deletePost: async (_, { id }, { models }) => {
