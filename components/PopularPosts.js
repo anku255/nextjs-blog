@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import Post from "./Post";
 import { screens } from "../theme";
 
 const PopularPostsWrapper = styled.div`
@@ -89,43 +89,11 @@ const PopularPostsWrapper = styled.div`
   }
 `;
 
-const StyledPost = styled.div`
-  width: inherit;
-  height: inherit;
-  display: flex;
-  flex-direction: column;
-
-  img {
-    width: 100%;
-    height: 20rem;
-    margin-bottom: 0.7rem;
-    object-fit: cover;
-  }
-
-  div {
-    font-size: 1.2rem;
-    line-height: 1.6rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
-
-const Post = props => (
-  <StyledPost {...props}>
-    <img src="https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" />
-    <div>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vel
-      obcaecati iure omnis quam voluptatibus doloremque hic, labore,
-      accusantium, repudiandae tempore magnam unde facilis dicta fugiat. A rerum
-      qui quas impedit sint aliquam distinctio modi officiis vero, iure
-      veritatis obcaecati ducimus, corporis ab quia ratione. Eius facere odio
-      architecto illo!
-    </div>
-  </StyledPost>
-);
+const post = {
+  title: "How Does Airbnb Work?",
+  imageURL:
+    "https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+};
 
 const PopularPosts = props => {
   return (
@@ -134,35 +102,35 @@ const PopularPosts = props => {
       <div className="grid">
         <div className="grid__row">
           <div className="grid__row__element">
-            <Post />
+            <Post post={post} />
           </div>
           <div className="grid__row__element">
-            <Post />
+            <Post post={post} />
           </div>
           <div className="grid__row__element">
-            <Post />
-          </div>
-        </div>
-        <div className="grid__row">
-          <div className="grid__row__element">
-            <Post />
-          </div>
-          <div className="grid__row__element">
-            <Post />
-          </div>
-          <div className="grid__row__element">
-            <Post />
+            <Post post={post} />
           </div>
         </div>
         <div className="grid__row">
           <div className="grid__row__element">
-            <Post />
+            <Post post={post} />
           </div>
           <div className="grid__row__element">
-            <Post />
+            <Post post={post} />
           </div>
           <div className="grid__row__element">
-            <Post />
+            <Post post={post} />
+          </div>
+        </div>
+        <div className="grid__row">
+          <div className="grid__row__element">
+            <Post post={post} />
+          </div>
+          <div className="grid__row__element">
+            <Post post={post} />
+          </div>
+          <div className="grid__row__element">
+            <Post post={post} />
           </div>
         </div>
       </div>

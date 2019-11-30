@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Layout from "../components/Layout";
 
 import { screens } from "../theme";
+import Post from "../components/Post";
 import PopularPosts from "../components/PopularPosts";
 
 const LatestPosts = styled.section`
@@ -80,25 +81,11 @@ const LatestPosts = styled.section`
   }
 `;
 
-const StyledPost = styled.div`
-  width: 100%;
-  height: 100%;
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const Post = () => (
-  <StyledPost>
-    <img
-      src="https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
-      alt="Blog post cover image"
-    />
-  </StyledPost>
-);
+const post = {
+  title: "How Does Airbnb Work?",
+  imageURL:
+    "https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+};
 
 export default () => (
   <Layout>
@@ -108,27 +95,27 @@ export default () => (
       <div className="grid">
         <div className="grid__left">
           <div className="col">
-            <Post />
+            <Post hideTitle post={post} />
           </div>
         </div>
         <div className="grid__right">
           <div className="col">
-            <Post />
+            <Post hideTitle height="200px" post={post} />
           </div>
           <div className="col">
-            <Post />
+            <Post hideTitle height="200px" post={post} />
           </div>
           <div className="col">
-            <Post />
+            <Post hideTitle height="200px" post={post} />
           </div>
           <div className="col">
-            <Post />
+            <Post hideTitle height="200px" post={post} />
           </div>
           <div className="col">
-            <Post />
+            <Post hideTitle height="200px" post={post} />
           </div>
           <div className="col">
-            <Post />
+            <Post hideTitle height="200px" post={post} />
           </div>
         </div>
       </div>
