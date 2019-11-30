@@ -6,18 +6,18 @@ export default {
   Query: {
     getPostById: async (parent, args, { models }) => {
       try {
-        return await models.Blog.findById(args.id);
+        return await models.Blog.findOne({ id: args.id, published: true });
       } catch (err) {
         return new Error("Failed to find a blog post with that id");
       }
     },
     getAllPosts: async (parent, args, { models }) => {
-      return models.Blog.find();
+      return models.Blog.find({ published: true });
     },
     getLatestPosts: async (parent, args, { models }) => {
       const skip = args.skip || 0;
       const limit = args.first || 10;
-      return models.Blog.find()
+      return models.Blog.find({ published: true })
         .skip(skip)
         .limit(limit)
         .sort([["createdOn", -1]]);
@@ -25,7 +25,7 @@ export default {
     getPopularPosts: async (parent, args, { models }) => {
       const skip = args.skip ? args.skip + 7 : 7; // skip first 7 posts as latest
       const limit = args.first || 10;
-      return models.Blog.find()
+      return models.Blog.find({ published: true })
         .skip(skip)
         .limit(limit)
         .sort([["createdOn", -1]]);
