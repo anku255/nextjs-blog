@@ -9,6 +9,7 @@ const GET_LATEST_POST_QUERY = gql`
   query getLatestPosts($skip: Int, $first: Int) {
     getLatestPosts(skip: $skip, first: $first) {
       id
+      title
       imageURL
     }
   }
@@ -30,8 +31,8 @@ const StyledLatestPosts = styled.section`
     flex-wrap: wrap;
 
     .col {
-      padding-right: 5px;
-      padding-bottom: 5px;
+      padding-right: 1rem;
+      padding-bottom: 1rem;
     }
 
     .grid__left {
@@ -73,7 +74,7 @@ const StyledLatestPosts = styled.section`
           padding-right: 0;
 
           &:nth-last-of-type(2n) {
-            padding-right: 5px;
+            padding-right: 1rem;
           }
         }
       }
@@ -115,7 +116,7 @@ const LatestPosts = () => {
           <div className="grid__right">
             {remainingPosts.map(post => (
               <div className="col" key={post.id}>
-                <Post hideTitle height="200px" post={post} />
+                <Post post={post} />
               </div>
             ))}
           </div>
