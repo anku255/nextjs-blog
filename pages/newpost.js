@@ -7,6 +7,9 @@ import gql from "graphql-tag";
 import Layout from "../components/Layout";
 import CustomInput from "../components/CustomInput";
 import Message from "../components/Message";
+import Button from "../components/Button";
+
+import { screens } from "../theme";
 
 const CREATE_POST_MUTATION = gql`
   mutation createPost($title: String!, $imageURL: String!, $content: String!) {
@@ -25,6 +28,10 @@ const CKEditor = dynamic(() => import("../components/CKEditor"), {
 const StyledForm = styled.div`
   padding: 2rem 8rem;
   max-width: 60rem;
+
+  @media (max-width: ${screens.lg}) {
+    padding: 2rem 4rem;
+  }
 
   h1 {
     width: 100%;
@@ -148,9 +155,9 @@ const CreatePost = () => {
                   <p className="error"> {errors.content}</p>
                 )}
               </div>
-              <button type="submit" disabled={createPostLoading}>
+              <Button type="submit" secondary disabled={createPostLoading}>
                 {createPostLoading ? "Submitting..." : "Submit"}
-              </button>
+              </Button>
             </form>
           )}
         </Formik>

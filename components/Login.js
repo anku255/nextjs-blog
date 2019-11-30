@@ -6,6 +6,7 @@ import gql from "graphql-tag";
 
 import CustomInput from "./CustomInput";
 import Message from "./Message";
+import Button from "./Button";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -89,9 +90,9 @@ const Login = props => {
               placeholder="Password"
               component={CustomInput}
             />
-            <button type="submit" disabled={loginLoading}>
+            <Button type="submit" secondary disabled={loginLoading}>
               {loginLoading ? "Logging In..." : "Login"}
-            </button>
+            </Button>
           </form>
         )}
       </Formik>

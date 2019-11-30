@@ -188,6 +188,11 @@ const Header = () => {
 
         <div className="header__right">
           <HeaderSelect isOpen={isOpen} />
+          {isLoggedIn && (
+            <Button primary onClick={() => router.push("/newpost")}>
+              New Post
+            </Button>
+          )}
           {isLoggedIn ? (
             <Button
               secondary
@@ -203,7 +208,6 @@ const Header = () => {
               Sign In
             </Button>
           )}
-          <Button primary>Rent your room</Button>
         </div>
       </div>
 
@@ -214,10 +218,26 @@ const Header = () => {
               <HeaderSelect />
             </li>
             <li>
-              <Button secondary>Sign In</Button>
+              {isLoggedIn ? (
+                <Button
+                  secondary
+                  onClick={() => {
+                    localStorage.removeItem("AUTH_TOKEN");
+                    setIsLoggedIn(false);
+                  }}
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button secondary onClick={() => router.push("/auth")}>
+                  Sign In
+                </Button>
+              )}
             </li>
             <li>
-              <Button primary>Rent your room</Button>
+              <Button primary onClick={() => router.push("/newpost")}>
+                New Post
+              </Button>
             </li>
           </ul>
         </nav>
