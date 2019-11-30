@@ -27,5 +27,6 @@ export default gql`
     published: Boolean!
     content: String!
     createdOn: String!
+    author: User!
   }
 `;

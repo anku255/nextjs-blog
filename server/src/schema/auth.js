@@ -12,6 +12,7 @@ export default gql`
     email: String!
     userType: USERTYPE!
     createdOn: String!
+    posts: [Post!]!
   }
 
   enum USERTYPE {

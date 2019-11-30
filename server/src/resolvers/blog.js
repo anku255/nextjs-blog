@@ -1,5 +1,7 @@
 import sanitizeHtml from "sanitize-html";
 
+import { getUserId } from "../utils";
+
 export default {
   Query: {
     getPostById: async (parent, args, { models }) => {
@@ -30,12 +32,18 @@ export default {
     }
   },
   Mutation: {
-    createPost: async (_, { title, imageURL, content }, { models }) => {
-      return models.Blog.create({
+    createPost: async (_, { title, imageURL, content }, context) => {
+      const userId = getUserId(context);
+      const blog = await context.models.Blog.create({
         title,
         imageURL,
-        content: sanitizeHtml(content)
+        content: sanitizeHtml(content),
+        author: userId
       });
+      const user = await context.models.User.findById(userId);
+      user.posts.push(blog._id);
+      await user.save();
+      return blog;
     },
     deletePost: async (_, { id }, { models }) => {
       const deletedPost = await models.Blog.findByIdAndDelete(id);
