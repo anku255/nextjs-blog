@@ -5,8 +5,14 @@ export default {
   Query: {},
   Mutation: {
     signup: async (_, args, context) => {
+      const userExists = await context.models.User.findOne({
+        email: args.email
+      });
+      if (userExists) {
+        throw new Error("User already exists");
+      }
       const password = await bcrypt.hash(args.password, 10);
-      const user = await context.models.User({ ...args, password });
+      const user = await context.models.User.create({ ...args, password });
       const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
       return {
         token,
