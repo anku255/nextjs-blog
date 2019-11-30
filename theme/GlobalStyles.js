@@ -13,6 +13,7 @@ export const normalize = css`
   }
   body {
     margin: 0;
+    font-family: "Josefin Sans", sans-serif;
   }
   main {
     display: block;
