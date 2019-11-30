@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Button from "./Button";
+import Link from "next/link";
 
+import Button from "./Button";
 import { screens } from "../theme";
 
 const StyledHeader = styled.header`
@@ -38,10 +39,17 @@ const StyledHeader = styled.header`
           fill: currentColor;
         }
       }
-      div {
+      a {
         font-size: 1.5rem;
         font-weight: bold;
         line-height: 1.25rem;
+        text-decoration: inherit;
+        color: inherit;
+
+        &:visited {
+          color: inherit;
+          text-decoration: inherit;
+        }
       }
     }
 
@@ -163,7 +171,9 @@ const Header = () => {
               )}
             </svg>
           </button>
-          <div>Clanist.com</div>
+          <Link href="/">
+            <a>Clanist.com</a>
+          </Link>
         </div>
 
         <div className="header__right">
