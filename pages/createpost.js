@@ -4,6 +4,7 @@ import { Formik, Field } from "formik";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Layout from "../components/Layout";
+import CustomInput from "../components/CustomInput";
 
 const CREATE_POST_MUTATION = gql`
   mutation createPost($title: String!, $imageURL: String!, $content: String!) {
@@ -19,12 +20,32 @@ const CKEditor = dynamic(() => import("../components/CKEditor"), {
   ssr: false
 });
 
-const CustomInput = props => <input {...props.field} />;
-
 const StyledForm = styled.div`
-  padding: 0.75rem 8rem;
+  padding: 2rem 8rem;
+  max-width: 60rem;
+
+  h1 {
+    width: 100%;
+  }
+
   .ck-editor__editable_inline {
     max-height: 30rem;
+  }
+
+  label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .error {
+    color: red;
+    margin-top: 0.5rem;
+  }
+
+  button {
+    margin-top: 1.5rem;
   }
 `;
 
@@ -82,25 +103,30 @@ const CreatePost = () => {
               <Field
                 required
                 name="title"
-                label="title"
+                label="Title"
                 placeholder="Title"
                 component={CustomInput}
               />
               <Field
                 required
                 name="imageURL"
-                label="imageURL"
+                label="Image URL"
                 placeholder="Image URL"
                 component={CustomInput}
               />
-              <CKEditor
-                data={values.content}
-                onChange={(_, editor) => {
-                  setFieldValue("content", editor.getData());
-                }}
-                onBlur={() => setFieldTouched("content", true)}
-              />
-              {errors.content && touched.content && errors.content}
+              <div>
+                <label htmlFor="content">Content</label>
+                <CKEditor
+                  data={values.content}
+                  onChange={(_, editor) => {
+                    setFieldValue("content", editor.getData());
+                  }}
+                  onBlur={() => setFieldTouched("content", true)}
+                />
+                {errors.content && touched.content && (
+                  <p className="error"> {errors.content}</p>
+                )}
+              </div>
               <button type="submit" disabled={createPostLoading}>
                 {createPostLoading ? "Submitting..." : "Submit"}
               </button>

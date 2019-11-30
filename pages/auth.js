@@ -5,12 +5,18 @@ import Layout from "../components/Layout";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
 
+import { screens } from "../theme";
+
 const Styles = styled.div`
-  padding: 0 8rem;
+  padding: 0.75rem 8rem;
 
   .container {
     display: flex;
     justify-content: center;
+
+    @media (max-width: ${screens.md}) {
+      flex-wrap: wrap;
+    }
   }
 `;
 

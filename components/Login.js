@@ -15,8 +15,10 @@ const LOGIN_MUTATION = gql`
 `;
 
 const StyledLogin = styled.div`
-  margin: 0 2rem;
-  width: 50%;
+  margin: 0.5rem 2rem;
+  flex: 1 1 50%;
+  border: 1px solid grey;
+  padding: 0.5rem 1rem;
 
   .error-msg {
     background: red;
