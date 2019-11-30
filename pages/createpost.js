@@ -7,7 +7,7 @@ import Layout from "../components/Layout";
 
 const CREATE_POST_MUTATION = gql`
   mutation createPost($title: String!, $imageURL: String!, $content: String!) {
-    createPost(title: $title, content: $content) {
+    createPost(title: $title, imageURL: $imageURL, content: $content) {
       id
       title
       content
