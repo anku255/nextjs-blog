@@ -41,7 +41,12 @@ const Wrapper = styled.footer`
         }
       }
     }
+
     @media (max-width: ${screens.lg}) {
+      padding: 4rem;
+    }
+
+    @media (max-width: ${screens.md}) {
       padding: 4rem;
       .grid {
         .column {
@@ -52,7 +57,6 @@ const Wrapper = styled.footer`
     }
 
     @media (max-width: ${screens.sm}) {
-      padding: 4rem;
       .grid {
         .column {
           flex-basis: 100%;
@@ -69,6 +73,7 @@ const Wrapper = styled.footer`
     font-size: 0.8rem;
     color: white;
     display: flex;
+    flex-wrap: wrap;
     .heading {
       margin-bottom: 0.7rem;
       font-weight: 600;
@@ -115,6 +120,27 @@ const Wrapper = styled.footer`
             height: 1rem;
             width: auto;
           }
+        }
+      }
+    }
+    @media (max-width: ${screens.lg}) {
+      padding: 2rem 4rem;
+    }
+
+    @media (max-width: ${screens.md}) {
+      .company-links,
+      .newsletter {
+        flex-basis: 100%;
+        margin-bottom: 2rem;
+      }
+    }
+
+    @media (max-width: ${screens.sm}) {
+      .company-links {
+        flex-wrap: wrap;
+        .column {
+          flex-basis: 50%;
+          margin-bottom: 1rem;
         }
       }
     }
