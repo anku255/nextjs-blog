@@ -8,6 +8,15 @@ const StyledPost = styled.div`
   display: flex;
   flex-direction: column;
 
+  &:hover {
+    .post__image {
+      background-color: #2e279d;
+      img {
+        opacity: 0.4;
+      }
+    }
+  }
+
   a {
     display: block;
     width: 100%;
