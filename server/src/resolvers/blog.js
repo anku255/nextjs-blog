@@ -9,6 +9,14 @@ export default {
     },
     getAllPosts: async (parent, args, { models }) => {
       return models.Blog.find();
+    },
+    getLatestPosts: async (parent, args, { models }) => {
+      const skip = args.skip || 0;
+      const limit = args.first || 10;
+      return models.Blog.find()
+        .skip(skip)
+        .limit(limit)
+        .sort([["createdOn", -1]]);
     }
   },
   Mutation: {

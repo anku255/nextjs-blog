@@ -3,6 +3,7 @@ import { gql } from "apollo-server-express";
 export default gql`
   extend type Query {
     getAllPosts: [Post!]!
+    getLatestPosts(skip: Int, first: Int): [Post!]!
     getPostById(id: ID!): Post!
   }
 
