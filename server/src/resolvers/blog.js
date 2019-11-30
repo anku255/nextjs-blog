@@ -11,8 +11,13 @@ export default {
         return new Error("Failed to find a blog post with that id");
       }
     },
-    getAllPosts: async (parent, args, { models }) => {
-      return models.Blog.find().sort([["createdOn", -1]]);
+    getAllPosts: async (parent, args, context) => {
+      const userId = getUserId(context);
+      const user = await context.models.User.findById(userId);
+      if (user.userType !== "ADMIN") {
+        throw new Error("Only admin can see this page");
+      }
+      return context.models.Blog.find().sort([["createdOn", -1]]);
     },
     getLatestPosts: async (parent, args, { models }) => {
       const skip = args.skip || 0;

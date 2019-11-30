@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Layout from "../components/Layout";
 import Table from "../components/Table";
+import Message from "../components/Message";
 
 const ALL_POSTS_QUERY = gql`
   query getAllPosts {
@@ -157,6 +158,7 @@ const Dashboard = () => {
     <Layout>
       <Styles>
         <h1>Posts List</h1>
+        <Message type="error" message={error && error.message} />
         <Table
           loading={loading}
           error={error}
