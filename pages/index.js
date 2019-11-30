@@ -1,5 +1,17 @@
 import styled from "styled-components";
+import { useQuery } from "@apollo/react-hooks";
+
+import gql from "graphql-tag";
 import Layout from "../components/Layout";
+
+const GET_LATEST_POST_QUERY = gql`
+  query getLatestPosts($skip: Int, $first: Int) {
+    getLatestPosts(skip: $skip, first: $first) {
+      id
+      imageURL
+    }
+  }
+`;
 
 import { screens } from "../theme";
 import Post from "../components/Post";
@@ -81,45 +93,38 @@ const LatestPosts = styled.section`
   }
 `;
 
-const post = {
-  title: "How Does Airbnb Work?",
-  imageURL:
-    "https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+export default () => {
+  const { loading, error, data } = useQuery(GET_LATEST_POST_QUERY, {
+    variables: { skip: 0, first: 7 }
+  });
+
+  if (loading) return <h1>Loading Posts....</h1>;
+  if (error) return <h1>Failed to load posts.</h1>;
+
+  const latestPost = data.getLatestPosts[0];
+  const remainingPosts = data.getLatestPosts.slice(1);
+
+  return (
+    <Layout>
+      <LatestPosts>
+        <h1>Latest</h1>
+
+        <div className="grid">
+          <div className="grid__left">
+            <div className="col">
+              <Post hideTitle post={latestPost} />
+            </div>
+          </div>
+          <div className="grid__right">
+            {remainingPosts.map(post => (
+              <div className="col" key={post.id}>
+                <Post hideTitle height="200px" post={post} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </LatestPosts>
+      <PopularPosts />
+    </Layout>
+  );
 };
-
-export default () => (
-  <Layout>
-    <LatestPosts>
-      <h1>Latest</h1>
-
-      <div className="grid">
-        <div className="grid__left">
-          <div className="col">
-            <Post hideTitle post={post} />
-          </div>
-        </div>
-        <div className="grid__right">
-          <div className="col">
-            <Post hideTitle height="200px" post={post} />
-          </div>
-          <div className="col">
-            <Post hideTitle height="200px" post={post} />
-          </div>
-          <div className="col">
-            <Post hideTitle height="200px" post={post} />
-          </div>
-          <div className="col">
-            <Post hideTitle height="200px" post={post} />
-          </div>
-          <div className="col">
-            <Post hideTitle height="200px" post={post} />
-          </div>
-          <div className="col">
-            <Post hideTitle height="200px" post={post} />
-          </div>
-        </div>
-      </div>
-    </LatestPosts>
-    <PopularPosts />
-  </Layout>
-);

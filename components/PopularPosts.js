@@ -1,4 +1,16 @@
 import styled from "styled-components";
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+
+const GET_POPULAR_POST_QUERY = gql`
+  query getPopularPosts($skip: Int, $first: Int) {
+    getPopularPosts(skip: $skip, first: $first) {
+      id
+      title
+      imageURL
+    }
+  }
+`;
 import Post from "./Post";
 import { screens } from "../theme";
 
@@ -89,51 +101,52 @@ const PopularPostsWrapper = styled.div`
   }
 `;
 
-const post = {
-  title: "How Does Airbnb Work?",
-  imageURL:
-    "https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+const groupPostsByRow = posts => {
+  return posts.reduce(
+    (acc, currElement) => {
+      const lastRow = acc.pop();
+      if (lastRow.length < 3) {
+        lastRow.push(currElement);
+        acc.push(lastRow);
+      } else {
+        acc.push(lastRow);
+        acc.push([currElement]);
+      }
+      return acc;
+    },
+    [[]]
+  );
 };
 
+const Row = ({ posts }) => (
+  <div className="grid__row">
+    {posts.map(post => (
+      <div className="grid__row__element">
+        <Post post={post} />
+      </div>
+    ))}
+  </div>
+);
+
 const PopularPosts = props => {
+  const { loading, error, data } = useQuery(GET_POPULAR_POST_QUERY);
+
+  if (error) return <h1>Failed to load posts.</h1>;
+
+  const postRows = loading ? [] : groupPostsByRow(data.getPopularPosts);
+
   return (
     <PopularPostsWrapper {...props}>
       <h1>Popular</h1>
-      <div className="grid">
-        <div className="grid__row">
-          <div className="grid__row__element">
-            <Post post={post} />
-          </div>
-          <div className="grid__row__element">
-            <Post post={post} />
-          </div>
-          <div className="grid__row__element">
-            <Post post={post} />
-          </div>
+      {loading ? (
+        <h1>Loading Posts....</h1>
+      ) : (
+        <div className="grid">
+          {postRows.map((row, i) => (
+            <Row key={i} posts={row} />
+          ))}
         </div>
-        <div className="grid__row">
-          <div className="grid__row__element">
-            <Post post={post} />
-          </div>
-          <div className="grid__row__element">
-            <Post post={post} />
-          </div>
-          <div className="grid__row__element">
-            <Post post={post} />
-          </div>
-        </div>
-        <div className="grid__row">
-          <div className="grid__row__element">
-            <Post post={post} />
-          </div>
-          <div className="grid__row__element">
-            <Post post={post} />
-          </div>
-          <div className="grid__row__element">
-            <Post post={post} />
-          </div>
-        </div>
-      </div>
+      )}
     </PopularPostsWrapper>
   );
 };
