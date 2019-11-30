@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Link from "next/link";
 
@@ -156,8 +157,17 @@ const HeaderSelect = () => (
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
   const toggle = () => setIsOpen(isOpen => !isOpen);
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("AUTH_TOKEN");
+    if (authToken) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <StyledHeader>
       <div className="header">
@@ -178,7 +188,21 @@ const Header = () => {
 
         <div className="header__right">
           <HeaderSelect isOpen={isOpen} />
-          <Button secondary>Sign In</Button>
+          {isLoggedIn ? (
+            <Button
+              secondary
+              onClick={() => {
+                localStorage.removeItem("AUTH_TOKEN");
+                setIsLoggedIn(false);
+              }}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button secondary onClick={() => router.push("/auth")}>
+              Sign In
+            </Button>
+          )}
           <Button primary>Rent your room</Button>
         </div>
       </div>
