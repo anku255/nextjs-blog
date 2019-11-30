@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import Post from "./Post";
+import { screens } from "../theme";
 
 const GET_POPULAR_POST_QUERY = gql`
   query getPopularPosts($skip: Int, $first: Int) {
@@ -11,8 +13,6 @@ const GET_POPULAR_POST_QUERY = gql`
     }
   }
 `;
-import Post from "./Post";
-import { screens } from "../theme";
 
 const PopularPostsWrapper = styled.div`
   padding: 4rem 8rem;
