@@ -6,13 +6,13 @@ export default {
   Query: {
     getPostById: async (parent, args, { models }) => {
       try {
-        return await models.Blog.findOne({ id: args.id, published: true });
+        return models.Blog.findOne({ _id: args.id, published: true });
       } catch (err) {
         return new Error("Failed to find a blog post with that id");
       }
     },
     getAllPosts: async (parent, args, { models }) => {
-      return models.Blog.find({ published: true });
+      return models.Blog.find().sort([["createdOn", -1]]);
     },
     getLatestPosts: async (parent, args, { models }) => {
       const skip = args.skip || 0;
@@ -51,10 +51,19 @@ export default {
         return new Error("Failed to delete the post with that id");
       return deletedPost;
     },
-    updatePost: async (_, { id, ...update }, { models }) => {
-      const updatedPost = await models.Blog.findByIdAndUpdate(id, update, {
-        new: true
-      });
+    updatePost: async (_, { id, ...update }, context) => {
+      const userId = getUserId(context);
+      const user = await context.models.User.findById(userId);
+      if (user.userType !== "ADMIN") {
+        throw new Error("Only admin can update posts.");
+      }
+      const updatedPost = await context.models.Blog.findByIdAndUpdate(
+        id,
+        update,
+        {
+          new: true
+        }
+      );
       if (!updatedPost)
         return new Error("Failed to update the post with that id");
       return updatedPost;
