@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 
 import Layout from "../components/Layout";
 import LatestArticles from "../components/LatestArticles";
+import { screens } from "../theme";
 
 const GET_POST_BY_ID = gql`
   query getPostById($id: ID!) {
@@ -81,6 +82,27 @@ const BlogWrapper = styled.div`
           }
         }
       }
+    }
+  }
+  @media (max-width: ${screens.lg}) {
+    .content {
+      padding: 4rem;
+    }
+  }
+  @media (max-width: ${screens.md}) {
+    .content {
+      &__blog {
+        flex-basis: 100%;
+        margin: 0;
+      }
+      &__table {
+        display: none;
+      }
+    }
+  }
+  @media (max-width: ${screens.sm}) {
+    .content {
+      padding: 2rem;
     }
   }
 `;
