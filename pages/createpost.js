@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import styled from "styled-components";
 import { Formik, Field } from "formik";
@@ -5,6 +6,7 @@ import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Layout from "../components/Layout";
 import CustomInput from "../components/CustomInput";
+import Message from "../components/Message";
 
 const CREATE_POST_MUTATION = gql`
   mutation createPost($title: String!, $imageURL: String!, $content: String!) {
@@ -65,21 +67,40 @@ const validate = values => {
 };
 
 const CreatePost = () => {
-  const [createPost, { loading: createPostLoading }] = useMutation(
-    CREATE_POST_MUTATION
+  const [successMsg, setSuccessMsg] = useState(null);
+  const [initialValues, setInitialValues] = useState({
+    title: "",
+    imageURL: "",
+    content: ""
+  });
+
+  const [createPost, { loading: createPostLoading, error }] = useMutation(
+    CREATE_POST_MUTATION,
+    {
+      onCompleted: () => {
+        setSuccessMsg("Post submitted for review by the admin.");
+        setInitialValues({
+          title: "",
+          imageURL: "",
+          content: ""
+        });
+      },
+      onError: () => {
+        setSuccessMsg(null);
+      }
+    }
   );
 
   return (
     <Layout>
       <StyledForm>
+        <Message type="success" message={successMsg} />
+        <Message type="error" message={error && error.message} />
+
         <h1>Create a post</h1>
 
         <Formik
-          initialValues={{
-            title: "",
-            imageURL: "",
-            content: ""
-          }}
+          initialValues={initialValues}
           validate={validate}
           onSubmit={values => {
             createPost({

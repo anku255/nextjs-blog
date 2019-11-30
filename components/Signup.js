@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
 import CustomInput from "./CustomInput";
+import Message from "./Message";
 
 const SIGNUP_MUTATION = gql`
   mutation signup($name: String!, $email: String!, $password: String!) {
@@ -58,7 +59,7 @@ const Signup = props => {
     <StyledSignup>
       <h2>Signup</h2>
 
-      {error && <p className="error-msg">{error.message}</p>}
+      <Message type="error" message={error && error.message} />
 
       <Formik
         initialValues={{
