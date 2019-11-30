@@ -1,6 +1,8 @@
 import React from "react";
+import styled from "styled-components";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
+import Layout from "../components/Layout";
 import Table from "../components/Table";
 
 const ALL_POSTS_QUERY = gql`
@@ -35,6 +37,14 @@ const PUBLISH_POST_MUTATION = gql`
       published
       createdOn
     }
+  }
+`;
+
+const Styles = styled.div`
+  padding: 0.75rem 8rem;
+
+  button {
+    margin: 0 0.5rem;
   }
 `;
 
@@ -144,15 +154,17 @@ const Dashboard = () => {
   const { loading, error, data } = useQuery(ALL_POSTS_QUERY);
   const tableData = React.useMemo(() => getTableData(data), [data]);
   return (
-    <div>
-      <h1>Post List</h1>
-      <Table
-        loading={loading}
-        error={error}
-        columns={columns}
-        data={tableData}
-      ></Table>
-    </div>
+    <Layout>
+      <Styles>
+        <h1>Posts List</h1>
+        <Table
+          loading={loading}
+          error={error}
+          columns={columns}
+          data={tableData}
+        />
+      </Styles>
+    </Layout>
   );
 };
 
