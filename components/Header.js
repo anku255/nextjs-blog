@@ -265,16 +265,20 @@ const Header = () => {
                 <Button
                   secondary
                   onClick={() => {
-                    localStorage.removeItem("AUTH_TOKEN");
+                    Cookies.remove("AUTH_TOKEN");
                     setIsLoggedIn(false);
                   }}
                 >
                   Logout
                 </Button>
               ) : (
-                <Button secondary onClick={() => router.push("/auth")}>
-                  Sign In
-                </Button>
+                <FacebookLogin
+                  appId="556331778277969"
+                  autoLoad={false}
+                  fields="name,email,picture"
+                  callback={responseFacebook}
+                  textButton={loginLoading ? "Logging In..." : "Login With FB"}
+                />
               )}
             </li>
             <li>
