@@ -23,6 +23,10 @@ const StyledPopularPosts = styled.div`
     padding: 0 4rem;
   }
 
+  @media (max-width: ${screens.sm}) {
+    padding: 0 2rem;
+  }
+
   .grid {
     display: flex;
     flex-direction: column;

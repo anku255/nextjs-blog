@@ -46,6 +46,10 @@ const Wrapper = styled.footer`
       padding: 4rem;
     }
 
+    @media (max-width: ${screens.sm}) {
+      padding: 2rem;
+    }
+
     @media (max-width: ${screens.md}) {
       padding: 4rem;
       .grid {

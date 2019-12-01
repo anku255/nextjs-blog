@@ -24,6 +24,10 @@ const StyledLatestPosts = styled.section`
     padding: 0 4rem;
   }
 
+  @media (max-width: ${screens.sm}) {
+    padding: 0 2rem;
+  }
+
   h1 {
     font-size: 2rem;
   }

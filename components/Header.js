@@ -19,6 +19,10 @@ const StyledHeader = styled.header`
       padding: 0 4rem;
     }
 
+    @media (max-width: ${screens.sm}) {
+      padding: 0 2rem;
+    }
+
     &__left {
       display: flex;
       align-items: center;

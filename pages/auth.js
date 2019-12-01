@@ -14,6 +14,10 @@ const Styles = styled.div`
     padding: 0.75rem 4rem;
   }
 
+  @media (max-width: ${screens.sm}) {
+    padding: 0.75rem 2rem;
+  }
+
   .container {
     display: flex;
     justify-content: center;

@@ -19,6 +19,7 @@ const GET_LATEST_POSTS = gql`
 const Wrapper = styled.div`
   color: black;
   padding: 8rem 8rem;
+
   .heading {
     font-size: 2rem;
     font-weight: 600;
@@ -53,6 +54,7 @@ const Wrapper = styled.div`
     }
   }
   @media (max-width: ${screens.sm}) {
+    padding: 2rem;
     ul {
       li {
         flex-basis: 100%;

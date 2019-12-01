@@ -7,6 +7,8 @@ import Table from "../components/Table";
 import Message from "../components/Message";
 import SVGLoader from "../components/SVGLoader";
 
+import { screens } from "../theme";
+
 const ALL_POSTS_QUERY = gql`
   query getAllPosts {
     getAllPosts {
@@ -44,6 +46,10 @@ const PUBLISH_POST_MUTATION = gql`
 
 const Styles = styled.div`
   padding: 0.75rem 8rem;
+
+  @media (max-width: ${screens.sm}) {
+    padding: 0.75rem 2rem;
+  }
 
   button {
     margin: 0 0.5rem;

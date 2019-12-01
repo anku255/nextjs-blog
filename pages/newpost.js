@@ -33,6 +33,10 @@ const StyledForm = styled.div`
     padding: 2rem 4rem;
   }
 
+  @media (max-width: ${screens.sm}) {
+    padding: 2rem;
+  }
+
   h1 {
     width: 100%;
   }
