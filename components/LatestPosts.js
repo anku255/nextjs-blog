@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { screens } from "../theme";
 import Post from "../components/Post";
 import PlaceholderPost from "./PlaceholderPost";
+import Message from "./Message";
 
 const GET_LATEST_POST_QUERY = gql`
   query getLatestPosts($skip: Int, $first: Int) {
@@ -93,12 +94,19 @@ const StyledLatestPosts = styled.section`
   }
 `;
 
+const LatestPostsError = ({ error }) => (
+  <StyledLatestPosts>
+    <h1>Latest Posts</h1>
+    <Message type="error" message={error && error.message} />
+  </StyledLatestPosts>
+);
+
 const LatestPosts = () => {
   const { loading, error, data } = useQuery(GET_LATEST_POST_QUERY, {
     variables: { skip: 0, first: 7 }
   });
 
-  if (error) return <h1>Failed to load posts.</h1>;
+  if (error) return <LatestPostsError error={error} />;
 
   const latestPost = loading ? null : data.getLatestPosts[0];
   const remainingPosts = loading ? null : data.getLatestPosts.slice(1);

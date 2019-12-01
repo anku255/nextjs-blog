@@ -5,6 +5,8 @@ import gql from "graphql-tag";
 
 import Layout from "../components/Layout";
 import LatestArticles from "../components/LatestArticles";
+import Message from "../components/Message";
+import SVGLoader from "../components/SVGLoader";
 import { screens } from "../theme";
 
 const GET_POST_BY_ID = gql`
@@ -116,14 +118,30 @@ const BlogWrapper = styled.div`
   }
 `;
 
+const LoadingPost = () => (
+  <Layout>
+    <BlogWrapper>
+      <SVGLoader />
+    </BlogWrapper>
+  </Layout>
+);
+
+const PostError = ({ error }) => (
+  <Layout>
+    <BlogWrapper style={{ padding: "2rem 8rem" }}>
+      <Message type="error" message={error && error.message} />
+    </BlogWrapper>
+  </Layout>
+);
+
 const PostPage = () => {
   const router = useRouter();
   const { loading, error, data } = useQuery(GET_POST_BY_ID, {
     variables: { id: router.query.id }
   });
 
-  if (loading) return <h1>Loading Post....</h1>;
-  if (error) return <h1>Failed to load post.</h1>;
+  if (loading) return <LoadingPost />;
+  if (error) return <PostError error={error} />;
 
   const post = data.getPostById;
 

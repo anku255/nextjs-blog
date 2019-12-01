@@ -1,5 +1,6 @@
 import { useTable, useSortBy } from "react-table";
 import styled from "styled-components";
+import SVGLoader from "./SVGLoader";
 
 const Styles = styled.div`
   table {
@@ -43,8 +44,7 @@ const Table = ({ columns, data, loading, error }) => {
     useSortBy
   );
 
-  if (loading) return <h1>Loading Table...</h1>;
-  if (error) return <h1>Failed to load posts</h1>;
+  if (loading || error) return null;
 
   return (
     <Styles>

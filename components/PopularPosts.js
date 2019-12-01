@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import Post from "./Post";
 import { screens } from "../theme";
 import PlaceholderPost from "./PlaceholderPost";
+import Message from "./Message";
 
 const GET_POPULAR_POST_QUERY = gql`
   query getPopularPosts($skip: Int, $first: Int) {
@@ -15,7 +16,7 @@ const GET_POPULAR_POST_QUERY = gql`
   }
 `;
 
-const PopularPostsWrapper = styled.div`
+const StyledPopularPosts = styled.div`
   padding: 4rem 8rem;
 
   @media (max-width: ${screens.lg}) {
@@ -140,22 +141,29 @@ const PlaceholderRow = () => (
   </div>
 );
 
-const PopularPosts = props => {
+const PopularPostsError = ({ error }) => (
+  <StyledPopularPosts>
+    <h1>Latest Posts</h1>
+    <Message type="error" message={error && error.message} />
+  </StyledPopularPosts>
+);
+
+const PopularPosts = () => {
   const { loading, error, data } = useQuery(GET_POPULAR_POST_QUERY);
 
-  if (error) return <h1>Failed to load posts.</h1>;
+  if (error) return <PopularPostsError error={error} />;
 
   const postRows = loading ? [] : groupPostsByRow(data.getPopularPosts);
 
   return (
-    <PopularPostsWrapper {...props}>
+    <StyledPopularPosts>
       <h1>Popular</h1>
       <div className="grid">
         {loading
           ? [1, 2, 3].map(i => <PlaceholderRow key={i} />)
           : postRows.map((row, i) => <Row key={i} posts={row} />)}
       </div>
-    </PopularPostsWrapper>
+    </StyledPopularPosts>
   );
 };
 

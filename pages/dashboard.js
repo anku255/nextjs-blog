@@ -5,6 +5,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import Message from "../components/Message";
+import SVGLoader from "../components/SVGLoader";
 
 const ALL_POSTS_QUERY = gql`
   query getAllPosts {
@@ -151,9 +152,21 @@ const getTableData = data => {
   }));
 };
 
+const DashboardLoader = () => (
+  <Layout>
+    <Styles>
+      <h1>Posts List</h1>
+      <SVGLoader />
+    </Styles>
+  </Layout>
+);
+
 const Dashboard = () => {
   const { loading, error, data } = useQuery(ALL_POSTS_QUERY);
   const tableData = React.useMemo(() => getTableData(data), [data]);
+
+  if (loading) return <DashboardLoader />;
+
   return (
     <Layout>
       <Styles>
