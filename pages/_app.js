@@ -1,9 +1,9 @@
 import App from "next/app";
-import React from "react";
+import { ApolloProvider } from "@apollo/react-hooks";
 import { ThemeProvider } from "styled-components";
 import GlobalStyles from "../theme/GlobalStyles";
 import { loadFonts } from "../lib/fonts";
-import { withApollo } from "../lib/apollo";
+import withApollo from "../lib/apollo";
 import NProgress from "../components/NProgress";
 
 const theme = {
@@ -17,13 +17,15 @@ class MyApp extends App {
   };
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apollo } = this.props;
     return (
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <NProgress />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <ApolloProvider client={apollo}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <NProgress />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </ApolloProvider>
     );
   }
 }

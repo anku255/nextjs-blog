@@ -1,7 +1,29 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Link from "next/link";
+import FacebookLogin from "react-facebook-login";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+import Cookies from "js-cookie";
+
+const IS_LOGGED_IN = gql`
+  query IsUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
+
+const FB_LOGIN_MUTATION = gql`
+  mutation fblogin($name: String!, $email: String!, $facebookId: String!) {
+    fblogin(name: $name, email: $email, facebookId: $facebookId) {
+      token
+      user {
+        name
+        email
+      }
+    }
+  }
+`;
 
 import Button from "./Button";
 import { screens } from "../theme";
@@ -161,18 +183,30 @@ const HeaderSelect = () => (
 );
 
 const Header = () => {
+  const { data } = useQuery(IS_LOGGED_IN);
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(data && data.isLoggedIn);
   const router = useRouter();
   const toggle = () => setIsOpen(isOpen => !isOpen);
 
-  useEffect(() => {
-    const authToken = localStorage.getItem("AUTH_TOKEN");
-    if (authToken) {
+  // facebook login stuff
+  const [fblogin, { loading: loginLoading }] = useMutation(FB_LOGIN_MUTATION, {
+    onCompleted: data => {
+      Cookies.set("AUTH_TOKEN", data.fblogin.token);
       setIsLoggedIn(true);
     }
-  }, []);
+  });
 
+  const responseFacebook = response => {
+    const { email, name, userID } = response;
+    fblogin({
+      variables: {
+        name: name,
+        email: email,
+        facebookId: userID
+      }
+    });
+  };
   return (
     <StyledHeader>
       <div className="header">
@@ -202,16 +236,20 @@ const Header = () => {
             <Button
               secondary
               onClick={() => {
-                localStorage.removeItem("AUTH_TOKEN");
+                Cookies.remove("AUTH_TOKEN");
                 setIsLoggedIn(false);
               }}
             >
               Logout
             </Button>
           ) : (
-            <Button secondary onClick={() => router.push("/auth")}>
-              Sign In
-            </Button>
+            <FacebookLogin
+              appId="556331778277969"
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={responseFacebook}
+              textButton={loginLoading ? "Logging In..." : "Login With FB"}
+            />
           )}
         </div>
       </div>
