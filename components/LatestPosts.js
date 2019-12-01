@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 
 import { screens } from "../theme";
 import Post from "../components/Post";
+import PlaceholderPost from "./PlaceholderPost";
 
 const GET_LATEST_POST_QUERY = gql`
   query getLatestPosts($skip: Int, $first: Int) {
@@ -58,6 +59,7 @@ const StyledLatestPosts = styled.section`
 
       .col {
         width: 33.33%;
+        min-height: 15rem;
       }
 
       .col:nth-of-type(3n) {
@@ -104,24 +106,30 @@ const LatestPosts = () => {
   return (
     <StyledLatestPosts>
       <h1>Latest</h1>
-      {loading ? (
-        <h1>Loading Posts....</h1>
-      ) : (
-        <div className="grid">
-          <div className="grid__left">
-            <div className="col">
+      <div className="grid">
+        <div className="grid__left">
+          <div className="col">
+            {loading ? (
+              <PlaceholderPost hideTitle />
+            ) : (
               <Post hideTitle post={latestPost} />
-            </div>
-          </div>
-          <div className="grid__right">
-            {remainingPosts.map(post => (
-              <div className="col" key={post.id}>
-                <Post post={post} />
-              </div>
-            ))}
+            )}
           </div>
         </div>
-      )}
+        <div className="grid__right">
+          {loading
+            ? [1, 2, 3, 4, 5, 6].map(i => (
+                <div className="col" key={i}>
+                  <PlaceholderPost key={i} hideTitle={false} />
+                </div>
+              ))
+            : remainingPosts.map(post => (
+                <div className="col" key={post.id}>
+                  <Post post={post} />
+                </div>
+              ))}
+        </div>
+      </div>
     </StyledLatestPosts>
   );
 };
