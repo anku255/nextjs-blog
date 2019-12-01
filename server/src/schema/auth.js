@@ -4,6 +4,7 @@ export default gql`
   extend type Mutation {
     signup(name: String!, email: String!, password: String!): AuthPayload
     login(email: String!, password: String!): AuthPayload
+    fblogin(facebookId: String!, email: String!, name: String!): AuthPayload
   }
 
   type User {

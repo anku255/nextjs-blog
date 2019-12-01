@@ -37,6 +37,28 @@ export default {
         token,
         user
       };
+    },
+    fblogin: async (_, args, context) => {
+      const user = await context.models.User.findOne({ email: args.email });
+      if (user) {
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+        return {
+          token,
+          user
+        };
+      } else {
+        const { name, email, facebookId } = args;
+        const user = await context.models.User.create({
+          _id: facebookId,
+          name,
+          email
+        });
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+        return {
+          token,
+          user
+        };
+      }
     }
   }
 };
