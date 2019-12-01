@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Post from "./Post";
 import { screens } from "../theme";
+import PlaceholderPost from "./PlaceholderPost";
 
 const GET_POPULAR_POST_QUERY = gql`
   query getPopularPosts($skip: Int, $first: Int) {
@@ -31,6 +32,7 @@ const PopularPostsWrapper = styled.div`
       margin-bottom: 2.5rem;
 
       &__element {
+        min-height: 30rem;
         &:first-child {
           flex-basis: 48.7%;
         }
@@ -128,6 +130,16 @@ const Row = ({ posts }) => (
   </div>
 );
 
+const PlaceholderRow = () => (
+  <div className="grid__row">
+    {[1, 2, 3].map(i => (
+      <div key={i} className="grid__row__element">
+        <PlaceholderPost hideTitle={false} />
+      </div>
+    ))}
+  </div>
+);
+
 const PopularPosts = props => {
   const { loading, error, data } = useQuery(GET_POPULAR_POST_QUERY);
 
@@ -138,15 +150,11 @@ const PopularPosts = props => {
   return (
     <PopularPostsWrapper {...props}>
       <h1>Popular</h1>
-      {loading ? (
-        <h1>Loading Posts....</h1>
-      ) : (
-        <div className="grid">
-          {postRows.map((row, i) => (
-            <Row key={i} posts={row} />
-          ))}
-        </div>
-      )}
+      <div className="grid">
+        {loading
+          ? [1, 2, 3].map(i => <PlaceholderRow key={i} />)
+          : postRows.map((row, i) => <Row key={i} posts={row} />)}
+      </div>
     </PopularPostsWrapper>
   );
 };
