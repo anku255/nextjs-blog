@@ -25,7 +25,7 @@ const StyledHeader = styled.header`
 
       button {
         display: none;
-        border: none;
+        background: none;
         margin: 0;
         padding: 0;
         margin-right: 1rem;
@@ -126,6 +126,7 @@ const StyledSelect = styled.div`
     cursor: pointer;
     font-weight: 600;
     font-size: 0.875rem;
+    background: none;
 
     &:focus {
       outline: none;
