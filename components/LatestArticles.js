@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 
 import { screens } from "../theme";
 import Post from "./Post";
+import PlaceholderPost from "./PlaceholderPost";
 
 const GET_LATEST_POSTS = gql`
   query getLatestPosts {
@@ -30,24 +31,6 @@ const Wrapper = styled.div`
     padding: 0;
     margin: 0;
     li {
-      div {
-        /* img {
-          width: 100%;
-          height: auto;
-          object-fit: cover;
-        } */
-        div {
-          /* padding-top: 0.5rem;
-          font-weight: 500;
-          font-size: 1rem;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          line-height: 1.6rem;
-          -webkit-line-clamp: 3; number of lines to show */
-          /* -webkit-box-orient: vertical; */
-        }
-      }
       flex: 1;
       &:not(:nth-child(4)) {
         margin-right: 2rem;
@@ -84,21 +67,29 @@ const Wrapper = styled.div`
 const LatestArticles = props => {
   const { loading, error, data } = useQuery(GET_LATEST_POSTS);
 
-  if (loading) return <h1>Loading Latest Posts...</h1>;
-
   if (error) return <h1>Failed to load Posts</h1>;
 
-  const articles = data.getLatestPosts.slice(0, 4);
+  let articles = [];
+
+  if (!loading) {
+    articles = data.getLatestPosts.slice(0, 4);
+  }
 
   return (
     <Wrapper {...props}>
       <div className="heading">Latest Articles</div>
       <ul>
-        {articles.map(article => (
-          <li key={article.id}>
-            <Post height="20rem" hideTitle={false} post={article} />
-          </li>
-        ))}
+        {loading
+          ? [1, 2, 3, 4].map(i => (
+              <li key={i}>
+                <PlaceholderPost hideTitle={false} />
+              </li>
+            ))
+          : articles.map(article => (
+              <li key={article.id}>
+                <Post height="20rem" hideTitle={false} post={article} />
+              </li>
+            ))}
       </ul>
     </Wrapper>
   );
