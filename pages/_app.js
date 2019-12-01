@@ -4,11 +4,11 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyles from "../theme/GlobalStyles";
 import { loadFonts } from "../lib/fonts";
 import { withApollo } from "../lib/apollo";
+import NProgress from "../components/NProgress";
 
 const theme = {
-  colors: {
-    primary: "#0070f3"
-  }
+  primary: "#ff7020",
+  secondary: "#ff8c4c"
 };
 
 class MyApp extends App {
@@ -21,6 +21,7 @@ class MyApp extends App {
     return (
       <ThemeProvider theme={theme}>
         <GlobalStyles />
+        <NProgress />
         <Component {...pageProps} />
       </ThemeProvider>
     );

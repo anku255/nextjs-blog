@@ -6,19 +6,25 @@ const Button = styled.button`
   margin-right: 1rem;
   font-size: 0.9rem;
   font-weight: 600;
+  min-width: 7rem;
   cursor: pointer;
-  ${props => props.primary && "background: #f6ad55;"}
-  ${props => props.secondary && "background: #fff;"}
+  ${props => props.primary && `background: ${props.theme.primary};`}
+  ${props =>
+    props.primary && `box-shadow: rgba(255, 112, 32, 0.6) 0px 5px 16px 0px;`}
+  ${props => props.secondary && `background: #fff;`}
+
   
   border-radius: ${props => (props.rounded ? "5px" : "0")};
   color: ${props => (props.primary ? "white" : "black")};
-  border: ${props => (props.primary ? "none" : "1px solid #f6ad55")};
+  border: ${props =>
+    props.primary ? "none" : `1px solid ${props.theme.secondary};`};
 
   &:focus {
     outline: none;
   }
   &:hover {
-    background: ${props => (props.primary ? "#dd6b20" : "#f6ad55")};
+    background: ${props =>
+      props.primary ? props.theme.primary : props.theme.secondary};
     color: white;
   }
 `;
